@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>CRUD-Operation by JSF</title>
+    <h:outputStylesheet library="webjars" name="bootstrap/5.3.2/css/bootstrap.min.css" />
+    <h:outputScript library="webjars" name="bootstrap/5.3.2/js/bootstrap.min.js" />
+</h:head>
+<h:outputText value="JSF dataTable Dao Example" styleClass="text-warning h1 ms-5"></h:outputText>
+
+
+
+<div class="container   mt-5   border border-secondary p-2">
+    <h:dataTable var="table"   value="#{cs.students}"   styleClass=" table table-warning text-center"  headerClass="bg-warning text-white fs-5 p-3" rowClasses="even,odd" >
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Student Name" />
+            </f:facet>
+            <div class="even">
+                   <h:panelGroup rendered="#{cs.edite and (cs.id eq table.id) }">
+                       <h:inputText value="#{cs.name}" />
+                   </h:panelGroup>
+                   <h:panelGroup rendered="#{not (cs.edite and (cs.id eq table.id))}">
+                       <h:outputText value="#{table.name}" />
+                   </h:panelGroup>
+            </div>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Student Email" />
+            </f:facet>
+            <div class="even">
+                <h:panelGroup rendered="#{cs.edite and (cs.id eq table.id) }">
+                    <h:inputText value="#{cs.email}" />
+                </h:panelGroup>
+                <h:panelGroup rendered="#{not (cs.edite and (cs.id eq table.id))}">
+                    <h:outputText value="#{table.email}" />
+                </h:panelGroup>
+            </div>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText  value="Student departement" />
+            </f:facet>
+            <div class="even">
+                <h:panelGroup rendered="#{cs.edite and (cs.id eq table.id) }">
+                    <h:inputText value="#{cs.departement}" />
+                </h:panelGroup>
+                <h:panelGroup rendered="#{not (cs.edite and (cs.id eq table.id))}">
+                    <h:outputText value="#{table.departement}" />
+                </h:panelGroup>
+
+            </div>
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="date" />
+            </f:facet>
+            <div class="even">
+                <h:panelGroup rendered="#{cs.edite and (cs.id eq table.id) }">
+                    <h:inputText value="#{cs.date}" />
+                </h:panelGroup>
+                <h:panelGroup rendered="#{not (cs.edite and (cs.id eq table.id))}">
+                    <h:outputText value="#{table.date}" />
+                </h:panelGroup>
+            </div>
+        </h:column>
+        <h:column >
+            <f:facet name="header">
+                <h:outputText value="Actions" />
+            </f:facet>
+               <h:form>
+                   <h:commandButton value="Edit" actionListener="#{cs.toggleEdite(table.id)}" styleClass="btn btn-success text-center me-1 ps-4 pe-4"/>
+                   <h:commandButton value="Delete" action="#{cs.delete(table.id)}"  styleClass="btn btn-danger  " />
+               </h:form>
+        </h:column>
+    </h:dataTable>
+    <div class="  bg-warning ">
+        <h:form >
+           <h:panelGroup rendered="#{cs.tsetAdd}">
+               <h:inputText  value="#{cs.name}" styleClass=" me-5 text-center" />
+               <h:inputText value="#{cs.email}" styleClass=" me-5 text-center"/>
+               <h:inputText value="#{cs.departement}" styleClass=" me-5 text-center" />
+               <h:inputText value="#{cs.date}" styleClass=" me-5 text-center" >
+                   <f:convertDateTime pattern="yyyy-MM-dd" />
+               </h:inputText>
+               <h:commandButton value="Submit" action="#{cs.save()}" styleClass="btn btn-primary" />
+           </h:panelGroup>
+        </h:form>
+    </div>
+       <h:form class="d-flex justify-content-between mt-2">
+           <h:commandButton value="set change" action="#{cs.update(cs.id)}" styleClass="text-decoration-none text-white bg-success ps-5 pt-2 pb-2 pe-5 rounded-2" />
+           <h:panelGroup rendered="#{not cs.tsetAdd}">
+               <h:commandButton value="Add" action="#{cs.toggleAdd()}" styleClass="text-decoration-none text-white bg-primary ps-5 pt-2 pb-2 pe-5 rounded-2"/>
+           </h:panelGroup>
+       </h:form>
+</div>
+</html>
