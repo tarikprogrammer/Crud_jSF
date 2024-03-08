@@ -11,19 +11,22 @@ import java.util.List;
 public class StudentService {
     private  StudentImpl student=new StudentImpl();
     private StudentModel studentModel;
-    public boolean addStudent(Student s){
-       List<Student>studentList =new ArrayList<>();
-       studentList=student.showStudent();
-       for(Student st:studentList){
-           if(st.getEmail().equals(s.getEmail())){
-               return false;
-           }else{
-               return student.addStudent(s);
-           }
-       }
+    public boolean addStudent(Student s) {
+        List<Student> studentList = new ArrayList<>();
+        boolean status=true;
+        studentList = student.showStudent();
+        for (Student st : studentList) {
+            if (((st.getEmail().trim()).equals(s.getEmail().trim()))) {
+                status=false;
+                break;
+            }
+        }
+        if(status){
+            student.addStudent(s);
+        }
+        return status;
 
 
-        return student.addStudent(s);
     }
     public List<Student> showStudent(){
         return student.showStudent();

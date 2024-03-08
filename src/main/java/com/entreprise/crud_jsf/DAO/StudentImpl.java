@@ -9,17 +9,15 @@ import java.util.List;
 
 public class StudentImpl implements Istudent{
     @Override
-    public boolean addStudent(Student s) {
+    public void addStudent(Student s) {
         EntityManagerFactory emf= Persistence.createEntityManagerFactory("jpa_student");
         EntityManager em= emf.createEntityManager();
         try{
             em.getTransaction().begin();
             em.persist(s);
             em.getTransaction().commit();
-            return true;
         }catch(Exception e){
             e.printStackTrace();
-            return false;
         }finally {
             em.close();
             emf.close();
