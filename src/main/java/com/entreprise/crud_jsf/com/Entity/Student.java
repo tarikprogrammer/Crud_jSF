@@ -5,12 +5,14 @@ import jakarta.annotation.ManagedBean;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 @ManagedBean
 @Entity
 @Table(name="student")
 public class Student implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
     private String name;
@@ -18,10 +20,9 @@ public class Student implements Serializable {
     private String email;
     @Column
     private String departement;
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private String date;
 
-    public Student(String name, String email, String departement, Date date) {
+    public Student(String name, String email, String departement, String date) {
         this.name = name;
         this.email = email;
         this.departement = departement;
@@ -63,11 +64,11 @@ public class Student implements Serializable {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getDate() {
+       return this.date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }

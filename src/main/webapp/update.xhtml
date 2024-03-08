@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>CRUD-Operation by JSF</title>
+    <h:outputStylesheet library="webjars" name="bootstrap/5.3.2/css/bootstrap.min.css" />
+    <h:outputScript library="webjars" name="bootstrap/5.3.2/js/bootstrap.min.js" />
+</h:head>
+<h:outputText value="JSF dataTable Dao Example" styleClass="text-warning h1 ms-5" />
+<div class="container mt-5 border border-secondary ">
+    <h:form>
+    <h:dataTable var="table" value="#{cs.students}" styleClass="table table-warning  " headerClass="bg-warning text-white fs-5" rowClasses="even,odd" >
+        <h:column >
+            <f:facet name="header">
+                <h:outputText value="Student Name" />
+            </f:facet>
+            <h:inputText value="#{cs.name}" rendered="#{table.id eq cs.id}"/>
+            <h:outputText value="#{table.name}" rendered="#{not (table.id eq cs.id)}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText value="Student Email" />
+            </f:facet>
+            <h:inputText value="#{cs.email}" rendered="#{table.id eq cs.id}"/>
+            <h:outputText value="#{table.email}" rendered="#{not (table.id eq cs.id)}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText  value="Student departement" />
+            </f:facet>
+            <h:inputText value="#{cs.departement}" rendered="#{table.id eq cs.id}"/>
+            <h:outputText value="#{table.departement}" rendered="#{not (table.id eq cs.id)}" />
+        </h:column>
+        <h:column>
+            <f:facet name="header">
+                <h:outputText  value="date" />
+            </f:facet>
+            <h:inputText value="#{cs.date}" rendered="#{table.id eq cs.id}"/>
+            <h:outputText value="#{table.date}" rendered="#{not (table.id eq cs.id)}" />
+        </h:column>
+        <h:column >
+            <f:facet name="header">
+                <h:outputText value="Actions" />
+            </f:facet>
+        </h:column>
+        <f:facet name="footer">
+            <tr>
+            </tr>
+        </f:facet>
+    </h:dataTable>
+        <div class="d-flex justify-content-between mt-2">
+            <h:commandLink  value="set change"  action="#{cs.update(cs.id)}" styleClass="text-decoration-none text-white bg-success ps-5 pt-2 pb-2 pe-5 rounded-2" >
+            </h:commandLink>
+            <h:commandLink value="Add"  action="add.xhtml" styleClass="text-decoration-none text-white bg-primary ps-5 pt-2 pb-2 pe-5 rounded-2"/>
+        </div>
+    </h:form>
+</div>
+<div>
+    <ul class="pagination justify-content-center">
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href="PageOne.xhtml">1</a></li>
+        <li class="page-item"><a class="page-link" href="PageTwo.xhtml">2</a></li>
+        <li class="page-item">
+            <a class="page-link" href="Next.xhtml">Next</a>
+        </li>
+    </ul>
+</div>
+</html>

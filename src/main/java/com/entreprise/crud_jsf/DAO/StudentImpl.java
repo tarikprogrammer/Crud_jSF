@@ -73,7 +73,6 @@ public class StudentImpl implements Istudent{
         try{
             em.getTransaction().begin();
             Student s=em.find(Student.class,id);
-            s.setId(data.getId());
             s.setName(data.getName());
             s.setEmail(data.getEmail());
             s.setDepartement(data.getDepartement());
