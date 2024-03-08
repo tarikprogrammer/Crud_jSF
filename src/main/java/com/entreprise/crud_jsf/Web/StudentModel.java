@@ -138,23 +138,32 @@ public class StudentModel implements Serializable {
         add=!add;
    }
    public void addStudent() throws IOException {
-       Student ns=new Student(name,email,departement,date);
-       StudentService studentService=new StudentService();
-       boolean isCreated=studentService.addStudent(ns);
-       if(isCreated){
-           setMessage("Row has been added successfuly");
-       }else{
-           setMessage("Email exist .... or something is wrong please try again !!!!");
-       }
-       students=studentService.showStudent();
-       name=" ";
-       email=" ";
-       departement=" ";
-       date=" ";
-       FacesContext facesContext = FacesContext.getCurrentInstance();
-       ExternalContext externalContext = facesContext.getExternalContext();
-       externalContext.redirect("index.xhtml");
-       add=false;
+        if(!(name.equals("") || email.equals("") || departement.equals("") || date.equals(""))){
+            Student ns=new Student(name,email,departement,date);
+            StudentService studentService=new StudentService();
+            boolean isCreated=studentService.addStudent(ns);
+            if(isCreated){
+                setMessage("Row has been added successfuly");
+            }else{
+                setMessage("Email exist .... or something is wrong please try again !!!!");
+            }
+            students=studentService.showStudent();
+            name=" ";
+            email=" ";
+            departement=" ";
+            date=" ";
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = facesContext.getExternalContext();
+            externalContext.redirect("index.xhtml");
+            add=false;
+        }else{
+            setMessage("Email exist .... or something is wrong please try again !!!!");
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ExternalContext externalContext = facesContext.getExternalContext();
+            externalContext.redirect("index.xhtml");
+            add=false;
+        }
+
    }
 public void deleteStudent(long id){
     StudentService studentService=new StudentService();
