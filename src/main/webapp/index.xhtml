@@ -10,7 +10,35 @@
     <h:outputScript library="webjars" name="bootstrap/5.3.2/js/bootstrap.min.js" />
 </h:head>
 <h:outputText value="JSF dataTable Dao Example" styleClass="text-warning h1 ms-5" />
-        <div class="container mt-5 border border-secondary ">
+        <div class="container mt-5 border border-secondary p-3 ">
+            <h:panelGroup rendered="#{cs.message eq 'Row has been added successfuly'}" >
+                <div class="alert alert-success bg-success alert-dismissible fade show text-white" id="myAlert" >
+                    <strong class="text-center"> Row has been added successfuly</strong>
+                    <button type="button" class="btn-close"  onclick="closeAlert()"></button>
+                </div>
+                #{cs.message =' '}
+            </h:panelGroup>
+            <h:panelGroup rendered="#{cs.message eq 'Email exist .... or something is wrong please try again !!!!'}" >
+                <div class="alert alert-danger bg-danger text-white alert-dismissible fade show" id="myAlert"  >
+                    <strong class="text-center">Email exist .... or something is wrong please try again !!!!</strong>
+                    <button type="button" class="btn-close "  onclick="closeAlert()"></button>
+                </div>
+                #{cs.message =' '}
+            </h:panelGroup>
+            <h:panelGroup rendered="#{cs.message eq 'Row has been updated successfuly'}">
+                <div class="alert alert-success bg-info alert-dismissible fade show text-white" id="myAlert" >
+                    <strong class="text-center"> Row has been updated successfuly</strong>
+                    <button type="button" class="btn-close "  onclick="closeAlert()"></button>
+                </div>
+                #{cs.message =' '}
+            </h:panelGroup>
+            <h:panelGroup rendered="#{cs.message eq 'Row has been deleted successfuly'}">
+                <div class="alert alert-success bg-danger alert-dismissible fade show text-white" id="myAlert" >
+                    <strong class="text-center"> Row has been deleted successfuly</strong>
+                    <button type="button" class="btn-close "  onclick="closeAlert()"></button>
+                </div>
+                #{cs.message =' '}
+            </h:panelGroup>
             <h:dataTable var="table" value="#{cs.students}" styleClass="table table-warning  " headerClass="bg-warning text-white fs-5" rowClasses="even,odd" >
                 <h:column >
                     <f:facet name="header">
@@ -70,4 +98,9 @@
     </li>
 </ul>
 </div>
+<script type="text/javascript">
+    function closeAlert() {
+        document.getElementById('myAlert').style.display = 'none';
+    }
+</script>
 </html>

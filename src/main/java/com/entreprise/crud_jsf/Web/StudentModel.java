@@ -2,10 +2,10 @@ package com.entreprise.crud_jsf.Web;
 
 import com.entreprise.crud_jsf.Services.StudentService;
 import com.entreprise.crud_jsf.com.Entity.Student;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+import jakarta.faces.bean.ManagedBean;
+import jakarta.faces.bean.SessionScoped;
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -23,10 +23,9 @@ public class StudentModel implements Serializable {
     private List<Student> students;
      private boolean edite=false;
      private boolean add;
-     private List<Student>studentsOne=new ArrayList<>();
-    private List<Student>studentsTwo=new ArrayList<>();
-    private List<Student>studentsNext=new ArrayList<>();
-    private List<Student>studentsIndex=new ArrayList<>();
+    private String message;
+
+
 
     public StudentModel(String name, String email, String departement, String date) {
         this.name = name;
@@ -101,7 +100,13 @@ public class StudentModel implements Serializable {
     public void setAdd(boolean add) {
         this.add = add;
     }
+    public String getMessage() {
+        return message;
+    }
 
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public void ToEdite(long studentID){
         StudentService studentService=new StudentService();
@@ -120,6 +125,9 @@ public class StudentModel implements Serializable {
         StudentService studentService = new StudentService();
         Student updatedStudent = new Student(name, email, departement, date);
         boolean isUpdated = studentService.updateStudent(studentId, updatedStudent);
+        if(isUpdated){
+            setMessage("Row has been updated successfuly");
+        }
         students=studentService.showStudent();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
@@ -129,21 +137,30 @@ public class StudentModel implements Serializable {
    public void ToAdd(){
         add=!add;
    }
-   public void addStudent() {
+   public void addStudent() throws IOException {
        Student ns=new Student(name,email,departement,date);
        StudentService studentService=new StudentService();
        boolean isCreated=studentService.addStudent(ns);
+       if(isCreated){
+           setMessage("Row has been added successfuly");
+       }else{
+           setMessage("Email exist .... or something is wrong please try again !!!!");
+       }
        students=studentService.showStudent();
        name=" ";
        email=" ";
        departement=" ";
        date=" ";
+       FacesContext facesContext = FacesContext.getCurrentInstance();
+       ExternalContext externalContext = facesContext.getExternalContext();
+       externalContext.redirect("index.xhtml");
        add=false;
    }
 public void deleteStudent(long id){
     StudentService studentService=new StudentService();
     studentService.deleteStudent(id);
-   students=studentService.showStudent();
+    setMessage("Row has been deleted successfuly");
+    students=studentService.showStudent();
     }
 }
 
