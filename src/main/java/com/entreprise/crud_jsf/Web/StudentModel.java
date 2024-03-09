@@ -156,7 +156,6 @@ public class StudentModel implements Serializable {
         setDepartement(s.getDepartement());
         setDate(s.getDate());
         edite=!edite;
-        System.out.println(edite);
 
     }
     public void update(long studentId) throws IOException {
@@ -166,7 +165,8 @@ public class StudentModel implements Serializable {
         if(isUpdated){
             setMessage("Row has been updated successfuly");
         }
-        students=studentService.showStudent();
+        setStudents(studentService.showStudent());
+        currentPageData=studentService.showStudent();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         externalContext.redirect("index.xhtml");
@@ -185,7 +185,8 @@ public class StudentModel implements Serializable {
             }else{
                 setMessage("Email exist .... or something is wrong please try again !!!!");
             }
-            students=studentService.showStudent();
+            setStudents(studentService.showStudent());
+            currentPageData=studentService.showStudent();
             name=" ";
             email=" ";
             departement=" ";
@@ -207,7 +208,8 @@ public void deleteStudent(long id){
     StudentService studentService=new StudentService();
     studentService.deleteStudent(id);
     setMessage("Row has been deleted successfuly");
-    students=studentService.showStudent();
+    setStudents(studentService.showStudent());
+    currentPageData=studentService.showStudent();
     }
 
 

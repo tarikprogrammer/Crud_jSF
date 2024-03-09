@@ -12,7 +12,7 @@
 <h:outputText value="JSF dataTable Dao Example" styleClass="text-warning h1 ms-5" />
 <div class="container mt-5 border border-secondary ">
     <div class="table-responsive">
-    <h:dataTable var="table" value="#{cs.students}" styleClass="table table-warning  " headerClass="bg-warning text-white fs-5" rowClasses="even,odd" >
+    <h:dataTable var="table" value="#{cs.currentPageData}" styleClass="table table-warning  " headerClass="bg-warning text-white fs-5" rowClasses="even,odd" >
         <h:column >
             <f:facet name="header">
                 <h:outputText value="Student Name" />
