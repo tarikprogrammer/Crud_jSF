@@ -9,6 +9,6 @@ public interface Istudent {
     List<Student> showStudent();
      Student findStudent(long id);
      boolean updateData(long id,Student s);
-
-    void deleteStudent(long id);
+     void deleteStudent(long id);
+     long getNumberOfRow();
 }

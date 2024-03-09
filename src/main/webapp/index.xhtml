@@ -9,8 +9,9 @@
     <h:outputStylesheet library="webjars" name="bootstrap/5.3.2/css/bootstrap.min.css" />
     <h:outputScript library="webjars" name="bootstrap/5.3.2/js/bootstrap.min.js" />
 </h:head>
-<h:outputText value="JSF dataTable Dao Example" styleClass="text-warning h1 ms-5" />
-        <div class="container mt-5 border border-secondary p-3 ">
+<h:body>
+         <h:outputText value="JSF dataTable Dao Example" styleClass="text-warning h1 ms-5 " />
+        <div class="container mt-5 border border-secondary p-3 pb-0 ">
             <h:panelGroup rendered="#{cs.message eq 'Row has been added successfuly'}" >
                 <div class="alert alert-success bg-success alert-dismissible fade show text-white" id="myAlert" >
                     <strong class="text-center"> Row has been added successfuly</strong>
@@ -39,7 +40,8 @@
                 </div>
                 #{cs.message =' '}
             </h:panelGroup>
-            <h:dataTable var="table" value="#{cs.students}" styleClass="table table-warning  " headerClass="bg-warning text-white fs-5" rowClasses="even,odd" >
+            <div class="table-responsive">
+            <h:dataTable var="table" value="#{cs.currentPageData}"  rows="4" styleClass="table table-warning " headerClass="bg-warning text-white fs-5" >
                 <h:column >
                     <f:facet name="header">
                         <h:outputText value="Student Name" />
@@ -69,8 +71,8 @@
                         <h:outputText value="Actions" />
                     </f:facet>
                     <h:form styleClass="d-flex ">
-                           <h:commandButton value="Edit" action="update.xhtml" actionListener="#{cs.ToEdite(table.id)}"  styleClass="btn btn-success text-center pe-4 ps-4 me-2 "/>
-                           <h:commandButton value="Delete" action="#{cs.deleteStudent(table.id)}" styleClass="btn btn-danger  text-center pe-3 ps-3 " />
+                              <h:commandButton value="Edit" action="update.xhtml" actionListener="#{cs.ToEdite(table.id)}"  styleClass="btn btn-success text-center pe-4 ps-4 me-2 "/>
+                             <h:commandButton value="Delete" action="#{cs.deleteStudent(table.id)}" styleClass="btn btn-danger  text-center pe-3 ps-3 " />
                     </h:form>
                 </h:column>
                 <f:facet name="footer">
@@ -78,29 +80,69 @@
                     </tr>
                 </f:facet>
             </h:dataTable>
-            <h:form>
-                <div class="d-flex justify-content-between mt-2">
-                    <h:commandLink id="submitButton" value="set change"  action="#{cs.update(cs.id)}" styleClass="text-decoration-none text-white bg-success ps-5 pt-2 pb-2 pe-5 rounded-2" >
-                    </h:commandLink>
-                    <h:commandLink value="Add"  action="add.xhtml" styleClass="text-decoration-none text-white bg-primary ps-5 pt-2 pb-2 pe-5 rounded-2"/>
                 </div>
-            </h:form>
+            <div class="row">
+                <div class="col-md col-sm col-lg">
+                    <h:form>
+                        <div class="d-flex justify-content-between mt-2">
+                            <h:commandLink id="submitButton" value="set change"  action="#{cs.update(cs.id)}" styleClass="text-decoration-none text-white bg-success ps-5 pt-2 pb-2 pe-5 rounded-2" />
+                            <h:commandLink value="Add"  action="add.xhtml" styleClass="text-decoration-none text-white bg-primary ps-5 pt-2 pb-2 pe-5 rounded-2"/>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+            </div>
+    <div>
+        <ul class="pagination d-flex justify-content-evenly mt-2">
+            <li class="page-item disabled ">
+                <h:form>
+                <h:commandLink class="page-link bg-dark text-white" tabindex="-1" rendered="#{cs.currentPageIndex gt 0}" actionListener="#{cs.previousPage()}"><i class="fa fa-angle-left"></i></h:commandLink>
+                </h:form>
+            </li>
+            <li class="page-item ">
+                <h:form>
+                    <h:commandLink class="page-link bg-dark text-white" action="#{cs.nextPage()}" rendered="#{cs.currentPageIndex lt cs.totalPages}" actionListener="#{cs.nextPage()}"><i class="fa fa-angle-right"></i></h:commandLink>
+                </h:form>
+            </li>
+        </ul>
+    </div>
+    <div class=" container my-5 bg-dark">
+
+        <div class=" footer text-center text-lg-start" >
+            <div class="d-flex justify-content-center py-5">
+                <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+                    <i class="fab fa-youtube"></i>
+                </button>
+                <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+                    <i class="fab fa-instagram"></i>
+                </button>
+                <button type="button" class="btn btn-primary btn-lg btn-floating mx-2" style="background-color: #54456b;">
+                    <i class="fab fa-twitter"></i>
+                </button>
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center text-white p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2024 Copyright:
+                <span class="text-warning">ALL Rights are Reserved by </span>
+                <span class="text-success">Tarik Belaid </span>
+                <span> and </span>
+                <span class="text-success">Anwar Ammar </span>
+            </div>
+            <!-- Copyright -->
         </div>
-<div>
-<ul class="pagination justify-content-center">
-    <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1">Previous</a>
-    </li>
-    <li class="page-item"><a class="page-link" href="PageOne.xhtml">1</a></li>
-    <li class="page-item"><a class="page-link" href="PageTwo.xhtml">2</a></li>
-    <li class="page-item">
-        <a class="page-link" href="Next.xhtml">Next</a>
-    </li>
-</ul>
-</div>
+
+    </div>
 <script type="text/javascript">
     function closeAlert() {
         document.getElementById('myAlert').style.display = 'none';
     }
 </script>
+    <script type="text/javascript" src="https://kit.fontawesome.com/647f2e7e8b.js"></script>
+
+</h:body>
 </html>
+

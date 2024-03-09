@@ -11,6 +11,7 @@
 </h:head>
 <h:outputText value="JSF dataTable Dao Example" styleClass="text-warning h1 ms-5" />
 <div class="container mt-5 border border-secondary ">
+    <div class="table-responsive">
     <h:dataTable var="table" value="#{cs.students}" styleClass="table table-warning  " headerClass="bg-warning text-white fs-5" rowClasses="even,odd" >
         <h:column >
             <f:facet name="header">
@@ -66,17 +67,6 @@
             <h:commandLink id="submitButton" value="set change"  action="#{cs.update(cs.id)}" styleClass="text-decoration-none text-white bg-success ps-5 pt-2 pb-2 pe-5 rounded-2" />
         </div>
     </h:form>
-</div>
-<div>
-    <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1">Previous</a>
-        </li>
-        <li class="page-item"><a class="page-link" href="PageOne.xhtml">1</a></li>
-        <li class="page-item"><a class="page-link" href="PageTwo.xhtml">2</a></li>
-        <li class="page-item">
-            <a class="page-link" href="Next.xhtml">Next</a>
-        </li>
-    </ul>
+    </div>
 </div>
 </html>

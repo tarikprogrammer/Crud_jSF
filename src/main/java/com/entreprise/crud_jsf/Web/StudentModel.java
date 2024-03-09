@@ -24,7 +24,9 @@ public class StudentModel implements Serializable {
      private boolean edite=false;
      private boolean add;
     private String message;
-
+    private List<Student> currentPageData;
+    private int currentPageIndex = 0;
+    private int pageSize = 4;
 
 
     public StudentModel(String name, String email, String departement, String date) {
@@ -36,6 +38,39 @@ public class StudentModel implements Serializable {
     public StudentModel() {
         StudentService studentService =new StudentService();
         students=studentService.showStudent();
+        loadCurrentPageData();
+
+    }
+    private void loadCurrentPageData() {
+        currentPageData = new ArrayList<>();
+        int startIndex = currentPageIndex * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, students.size());
+        for (int i = startIndex; i < endIndex; i++) {
+            currentPageData.add(students.get(i));
+        }
+    }
+    public void nextPage() {
+        if (currentPageIndex < getTotalPages() - 1) {
+            currentPageIndex++;
+            loadCurrentPageData();
+        }
+    }
+    public void previousPage() {
+        if (currentPageIndex > 0) {
+            currentPageIndex--;
+            loadCurrentPageData();
+        }
+    }
+    public List<Student> getCurrentPageData() {
+        return currentPageData;
+    }
+
+    public int getCurrentPageIndex() {
+        return currentPageIndex;
+    }
+
+    public int getTotalPages() {
+        return (int) Math.ceil((double) students.size() / pageSize);
     }
     //setters and getters
     public long getId() {
@@ -104,9 +139,12 @@ public class StudentModel implements Serializable {
         return message;
     }
 
+
+
     public void setMessage(String message) {
         this.message = message;
     }
+
 
     public void ToEdite(long studentID){
         StudentService studentService=new StudentService();
@@ -171,6 +209,9 @@ public void deleteStudent(long id){
     setMessage("Row has been deleted successfuly");
     students=studentService.showStudent();
     }
+
+
+
 }
 
 

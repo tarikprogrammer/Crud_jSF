@@ -40,4 +40,7 @@ public class StudentService {
     public void deleteStudent(long id){
         student.deleteStudent(id);
     }
+    public long RowCount(){
+        return student.getNumberOfRow();
+    }
 }

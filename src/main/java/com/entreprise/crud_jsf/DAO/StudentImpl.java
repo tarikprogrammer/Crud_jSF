@@ -33,11 +33,9 @@ public class StudentImpl implements Istudent{
             Query query=em.createQuery("select e from Student e");
             List<Student>list=query.getResultList();
             em.getTransaction().commit();
-            System.out.println("oui");
             return list;
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("no");
             return null;
         }finally {
             em.close();
@@ -102,5 +100,25 @@ public class StudentImpl implements Istudent{
           em.close();
           emf.close();
       }
+    }
+
+    @Override
+    public long getNumberOfRow() {
+        long rowCount = 0;
+        EntityManagerFactory emf=Persistence.createEntityManagerFactory("jpa_student");
+        EntityManager em=emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            Query query=em.createQuery("SELECT COUNT(e) FROM Student e ");
+            rowCount=(long)query.getSingleResult();
+            em.getTransaction().commit();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            em.close();
+            emf.close();
+        }
+        return rowCount;
     }
 }
